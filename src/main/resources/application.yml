@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: EVENT_MANAGEMENT
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/event_management
+    username: root
+    password: Ramp$0192
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    platform: mysql
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
