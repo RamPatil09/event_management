@@ -48,7 +48,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // Check if the token is blacklisted (invalidated)
         if (token != null && jwtService.isTokenInvalid(token)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // Set response status to UNAUTHORIZED
-            response.getWriter().write("Token is invalidated. Please log in again."); // Inform the client
+            response.getWriter().write("Token is not valid. Please log in again."); // Inform the client
             return; // Stop processing further
         }
 

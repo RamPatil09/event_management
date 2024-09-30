@@ -1,6 +1,7 @@
 package com.patil.eventmanagement.service;
 
 import com.patil.eventmanagement.dto.request.RegisterRequest;
+import com.patil.eventmanagement.dto.response.UserResponse;
 import com.patil.eventmanagement.entity.ERoles;
 import com.patil.eventmanagement.entity.Users;
 import com.patil.eventmanagement.exception.EventManagementCustomException;
@@ -51,5 +52,51 @@ public class UserServiceImpl implements UserService {
         log.info("User saved successfully with ID: {}", savedUser.getId());
 
         return savedUser.getId();
+    }
+
+    @Override
+    public UserResponse findUserById(long id) {
+        log.info("Inside find user by Id method.");
+        Users user = userRepository.findById(id)
+                .orElseThrow(() -> new EventManagementCustomException("User not found!", "USER_NOT_FOUND"));
+
+        if (user != null) {
+            log.info("User found with ID:{} ", id);
+            UserResponse userResponse = UserResponse
+                    .builder()
+                    .id(user.getId())
+                    .firstname(user.getFirstname())
+                    .lastname(user.getLastname())
+                    .email(user.getEmail())
+                    .contactNumber(user.getContactNumber())
+                    .build();
+            return userResponse;
+        }
+
+        log.info("User not found with given id:{}", id);
+        return null;
+    }
+
+    @Override
+    public UserResponse findUserByUsername(String username) {
+        log.info("Inside find user by Id method.");
+        Users user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new EventManagementCustomException("User not found with username: " + username, "USER_NOT_FOUND"));
+
+        if (user != null) {
+            log.info("User found with username:{} ", username);
+            UserResponse userResponse = UserResponse
+                    .builder()
+                    .id(user.getId())
+                    .firstname(user.getFirstname())
+                    .lastname(user.getLastname())
+                    .email(user.getEmail())
+                    .contactNumber(user.getContactNumber())
+                    .build();
+            return userResponse;
+        }
+
+        log.info("User not found with given username:{}", username);
+        return null;
     }
 }
