@@ -8,4 +8,6 @@ public interface UserService {
     Long saveUser(RegisterRequest registerRequest);
     UserResponse findUserById(long id);
     UserResponse findUserByUsername(String username);
+
+
 }

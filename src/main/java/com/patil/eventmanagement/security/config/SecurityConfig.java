@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection for API endpoints
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll() // Allow public access to auth endpoints
-                        .requestMatchers("/api/v1/user/**").hasAuthority("ROLE_USER") // Require USER role for user endpoints
+                        .requestMatchers("/api/v1/user/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN") // Require USER role for user endpoints
                         .requestMatchers("/api/v1/admin/**").hasAuthority("ROLE_ADMIN") // Require ADMIN role for admin endpoints
                         .anyRequest().authenticated() // Authenticate all other requests
                 )
